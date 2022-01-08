@@ -13,10 +13,15 @@ class MayaTriggerProcessor {
         this._trigger = trigger;
         this._environment = trigger.environment || {};
         this._prompt = {}
+
+        this.worker()
     }
 
-    public async collectUserInputs(): Promise<boolean> {
+    private async worker() {
+        await this._collectUserInputs()
+    }
 
+    public async _collectUserInputs(): Promise<boolean> {
         if (this._trigger.prompt === null || this._trigger.prompt === undefined) { return false; }
 
         const variableNames = Object.keys(this._trigger.prompt);
@@ -32,7 +37,6 @@ class MayaTriggerProcessor {
                 this._prompt[variableKey] = await promptWrapper.askUser(variableKey)
             }
         }
-
 
         return true
     }
