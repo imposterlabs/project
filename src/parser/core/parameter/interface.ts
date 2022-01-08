@@ -4,4 +4,3 @@ export interface Parameter {
     warning: boolean
     error: boolean
 }
-
