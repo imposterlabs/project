@@ -10,9 +10,7 @@ export interface Context {
 export interface ContextAsParameter extends Context { }
 
 
-/**
- * ContextualFunction is a function that exports the context for programmable behavior
- */
-export interface ContextualFunction {
-    (context: Context): undefined | any;
+/** ContextualFunction is a function that exports the context for programmable behavior */
+export interface ContextualFunction<Type> {
+    (context: Context): Type;
 }

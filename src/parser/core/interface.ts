@@ -14,11 +14,11 @@ export interface MayaTriggerDefinition {
     method: Method
 
     /** url of the request */
-    url: string | ContextualFunction
+    url: string | ContextualFunction<string>
 
-    header: Record<string, Parameter> | ContextualFunction
+    header?: Record<string, string> | ContextualFunction<string>
 
-    body: any | ContextualFunction
+    body?: any | ContextualFunction<any>
 
-    response: ContextualFunction
+    response?: ContextualFunction<any>
 }
