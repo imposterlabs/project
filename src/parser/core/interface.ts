@@ -1,24 +1,42 @@
-import { Parameter } from "./parameter/interface"
 import { Method } from "./method/interface"
+import { Parameter } from "./parameter/interface"
 import { ContextualFunction } from "./context/interface"
 
-export interface MayaTriggerDefinition {
+export interface IHeader extends Record<string, string> { }
+export interface IEnvironment extends Record<string, string> { }
+export interface IPrompt extends Record<string, any> { }
+
+export interface IMayaTriggerDefinition {
+
 
     /** objects to fetch from the environment */
-    environment?: Record<string, Parameter>,
+    environment?: IEnvironment,
 
     /** objects to prompt the user for input */
-    prompt?: Record<string, any>
+    prompt?: IPrompt
+
+    /** unique identifier for any trigger */
+    name: string | ContextualFunction<string>
 
     /** http method of the request */
     method: Method
 
     /** url of the request */
-    url: string | ContextualFunction
+    url: string | ContextualFunction<string>
 
-    header: Record<string, Parameter> | ContextualFunction
+    /** http headers sent along-with request */
+    header?: IHeader | ContextualFunction<IHeader>
 
-    body: any | ContextualFunction
+    /** http body sent as payload */
+    body?: any | ContextualFunction<any>
 
-    response: ContextualFunction
+    /** function to run on response of data */
+    response?: ContextualFunction<any>
+
+    /** names of triggers to run before and after current trigger */
+    before?: Array<string>
+    next?: Array<string>
+
+    /** use defaults in place of prompt variables */
+    autonomous?: boolean
 }
