@@ -3,19 +3,20 @@ import { Parameter } from "./parameter/interface"
 import { ContextualFunction } from "./context/interface"
 
 export interface IHeader extends Record<string, string> { }
-export interface IEnvironment extends Record<string, Parameter> { }
+export interface IEnvironment extends Record<string, string> { }
 export interface IPrompt extends Record<string, any> { }
 
 export interface IMayaTriggerDefinition {
 
-    /** unique identifier for any trigger */
-    name: string
 
     /** objects to fetch from the environment */
     environment?: IEnvironment,
 
     /** objects to prompt the user for input */
     prompt?: IPrompt
+
+    /** unique identifier for any trigger */
+    name: string | ContextualFunction<string>
 
     /** http method of the request */
     method: Method
@@ -24,7 +25,7 @@ export interface IMayaTriggerDefinition {
     url: string | ContextualFunction<string>
 
     /** http headers sent along-with request */
-    header?: IHeader | ContextualFunction<string>
+    header?: IHeader | ContextualFunction<IHeader>
 
     /** http body sent as payload */
     body?: any | ContextualFunction<any>
@@ -33,8 +34,8 @@ export interface IMayaTriggerDefinition {
     response?: ContextualFunction<any>
 
     /** names of triggers to run before and after current trigger */
-    before: Array<string>
-    next: Array<string>
+    before?: Array<string>
+    next?: Array<string>
 
     /** use defaults in place of prompt variables */
     autonomous?: boolean

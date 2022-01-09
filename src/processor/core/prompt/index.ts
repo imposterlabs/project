@@ -1,10 +1,11 @@
 import * as readline from 'readline';
+import { IPromptConfiguration } from './interface';
 
 class PromptWrapper {
     private _channel: readline.Interface;
     private _autoCloseChannel: boolean;
 
-    constructor(autoCloseChannel: boolean) {
+    constructor({ autoCloseChannel }: IPromptConfiguration) {
         this._autoCloseChannel = autoCloseChannel;
         this._channel = readline.createInterface({
             input: process.stdin,
