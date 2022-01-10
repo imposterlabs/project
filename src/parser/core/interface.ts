@@ -33,7 +33,7 @@ export interface IMayaTriggerDefinition {
 
     /** names of triggers to run before and after current trigger */
     before?: Array<string>
-    next?: Array<string>
+    after?: Array<string>
 
     /** use defaults in place of prompt variables */
     autonomous?: boolean
@@ -61,7 +61,7 @@ export interface IMayaRouteDefinition {
 
     /** names of triggers to run before and after current trigger */
     before?: Array<string>
-    next?: Array<string>
+    after?: Array<string>
 
     /** use defaults in place of prompt variables */
     autonomous?: boolean

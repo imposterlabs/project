@@ -19,6 +19,7 @@ class MayaRouteProcessor extends CommonBaseClass {
     }
 
     public async process() {
+        this._setDefaults()
         await this._collectUserInputs()
         await this._transformContextualFunctionToString()
         return {
@@ -71,6 +72,10 @@ class MayaRouteProcessor extends CommonBaseClass {
         } catch (e) {
             throw new ContextualFunctionException(`failing contextual function in ${this._route.name}`)
         }
+    }
+
+    private _setDefaults() {
+        this._route.before = this._route.before || []
     }
 }
 
