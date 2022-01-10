@@ -1,4 +1,5 @@
-import { Request, Response } from "express"
+import { Request } from "express"
+
 /**
  * The context that is passed/returned  at runtime.
  */
@@ -17,6 +18,6 @@ export interface ContextualFunction<ContextType, ReturnType> {
 }
 
 export interface IHttpContext extends IContext {
-    request: Request
+    request: Request,
+    faker: Faker.FakerStatic
 }
-

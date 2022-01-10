@@ -3,6 +3,7 @@ import bodyParser from "body-parser"
 import { IEnvironment, IMayaRouteDefinition } from "../parser/core/interface";
 import { CommonBaseClass } from "../common/class"
 import { MayaRouteProcessor } from "./routeProcessor";
+import faker from "faker/locale/en_IND"
 
 class HttpWebServer extends CommonBaseClass {
 
@@ -44,7 +45,8 @@ class HttpWebServer extends CommonBaseClass {
                     const programmedResponse = await route.response({
                         environment: processedRoute.environment,
                         prompt: processedRoute.prompt,
-                        request
+                        request,
+                        faker
                     })
                     return res.json(programmedResponse)
                 }
