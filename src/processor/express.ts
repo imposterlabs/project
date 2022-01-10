@@ -39,13 +39,18 @@ class HttpWebServer extends CommonBaseClass {
 
         this._app[requestMethod](route.url,
             async (request: express.Request, res: express.Response) => {
-                const programmedResponse = await route.response({
-                    environment: processedRoute.environment,
-                    prompt: processedRoute.prompt,
-                    request
-                })
 
-                return res.json(programmedResponse)
+                if (route.response instanceof Function) {
+                    const programmedResponse = await route.response({
+                        environment: processedRoute.environment,
+                        prompt: processedRoute.prompt,
+                        request
+                    })
+                    return res.json(programmedResponse)
+                }
+
+                return res.json(route.response)
+
             }
         )
     }

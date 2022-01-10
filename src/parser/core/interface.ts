@@ -57,7 +57,7 @@ export interface IMayaRouteDefinition {
     url: string | ContextualFunction<IContext, string>
 
     /** function to run on response of data */
-    response: ContextualFunction<IHttpContext, any>
+    response: ContextualFunction<IHttpContext, any> | Record<string, any>
 
     /** names of triggers to run before and after current trigger */
     before?: Array<string>
