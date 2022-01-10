@@ -56,6 +56,10 @@ class RedisAdapter extends BaseDatabaseAdapter {
             this._keyCannotBeSavedHandler(key, value)
         }
     }
+
+    public async close(): Promise<void> {
+        this._client.quit()
+    }
 }
 
 export { RedisAdapter }
