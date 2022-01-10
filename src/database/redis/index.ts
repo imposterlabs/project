@@ -13,7 +13,7 @@ class RedisAdapter extends BaseDatabaseAdapter {
         const baseAdapterConfig: IBaseDatabaseAdapter = {
             databaseType: "redis",
             name: "redis",
-            connectionString
+            connectionString: connectionString || "redis://localhost:6379"
         }
         super(baseAdapterConfig)
 
@@ -50,7 +50,7 @@ class RedisAdapter extends BaseDatabaseAdapter {
     }
 
     public async setValue<Type>(key: string, value: string): Promise<void> {
-        const operation = await this._client.set(key, value)
+        const operation = await this._client.set(key, value, { EX: 30 })
 
         if (operation !== "OK") {
             this._keyCannotBeSavedHandler(key, value)

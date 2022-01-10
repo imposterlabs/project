@@ -1,3 +1,3 @@
 export interface IRedisDatabaseAdapter {
-    connectionString: string
+    connectionString?: string
 }

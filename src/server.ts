@@ -1,11 +1,18 @@
-import { METHOD } from "./parser/core/method/index"
-import { MayaTriggerProcessor } from "./processor"
-import { StateHandler } from "./state/useState"
+import { StateHandler, PersistentStateHandler } from "./state/useState"
+import { RedisAdapter } from "./database/redis"
 
 
-const { get: getCounter, set: setCounter } = StateHandler<number>(10)
-console.log(getCounter())
 
-setCounter(200)
 
-console.log(getCounter())
+const worker = async () => {
+    const { get, set } = await PersistentStateHandler(10);
+    console.log(`Reading value from database : ${await get()}`)
+    set(200)
+}
+
+worker()
+
+
+
+
+
