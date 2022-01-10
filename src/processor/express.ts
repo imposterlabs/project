@@ -16,6 +16,7 @@ class HttpWebServer extends CommonBaseClass {
 
         this._app = express();
         this._app.use(bodyParser.urlencoded({ extended: true }))
+        this._app.use(bodyParser.json())
         this._app.get("/", (req, res) => { return res.json({ alive: true }) })
 
         this._environment = {}
