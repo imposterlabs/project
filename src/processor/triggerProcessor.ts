@@ -1,6 +1,6 @@
 import { PromptWrapper } from "./core/prompt";
 import { IMayaTriggerDefinition, IEnvironment, IPrompt, IHeader } from "../parser/core/interface";
-import { Context, ContextualFunction } from "../parser/core/context/interface";
+import { ContextualFunction, IContext } from "../parser/core/context/interface";
 import { ContextualFunctionException } from "../exceptions/ContextualFunctionException"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
@@ -64,8 +64,8 @@ class MayaTriggerProcessor {
 
     }
 
-    public async _processContextualFunction<Type>(contextualFunction: ContextualFunction<Type>): Promise<Type> {
-        const contextInsideFunction: Context = {
+    public async _processContextualFunction<Type>(contextualFunction: ContextualFunction<IContext, Type>): Promise<Type> {
+        const contextInsideFunction: IContext = {
             environment: this._environment,
             prompt: this._prompt
         }
