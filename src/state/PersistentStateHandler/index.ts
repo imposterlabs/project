@@ -1,25 +1,7 @@
 import { v4 as uuid } from 'uuid';
-import { IStateHandler, IStateHandlerAsync } from "./interface"
+import { IStateHandlerAsync } from "./interface"
 import { RedisAdapter } from '../../database/redis';
 
-
-const StateHandler = (function () {
-    let internalStorage: any
-
-    return function useState<Type>(initialValue: Type): IStateHandler<Type> {
-        internalStorage = initialValue
-
-        function set(updatedValue: Type): void {
-            internalStorage = updatedValue
-        }
-
-        function get(): Type {
-            return internalStorage
-        }
-
-        return { get, set }
-    }
-})()
 
 const PersistentStateHandler = (function () {
     const hookID: string = uuid();
@@ -75,5 +57,4 @@ const PersistentStateHandler = (function () {
 })()
 
 
-
-export { StateHandler, PersistentStateHandler }
+export { PersistentStateHandler }

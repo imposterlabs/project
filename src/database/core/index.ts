@@ -29,6 +29,7 @@ abstract class BaseDatabaseAdapter {
     public abstract _testConnection(): Promise<void>
     public abstract setValue(key: string, value: string): void
     public abstract getValue(key: string): Promise<string | undefined>
+    public abstract close(): void
 
     protected _log(message: string): void {
         console.log(`[${this._name}] : ${message}`)
