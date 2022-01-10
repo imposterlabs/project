@@ -1,8 +1,9 @@
+import { CommonBaseClass } from "../../common/class"
 import { KeyCannotBeSavedException } from "../../exceptions/KeyCannotBeSavedException"
 import { KeyNotFoundException } from "../../exceptions/KeyNotFoundException"
 import { IBaseDatabaseAdapter } from "./interface"
 
-abstract class BaseDatabaseAdapter {
+abstract class BaseDatabaseAdapter extends CommonBaseClass {
 
     protected _name: string
     protected _databaseType: string
@@ -13,6 +14,7 @@ abstract class BaseDatabaseAdapter {
     protected _raiseExceptionOnWarning: boolean = false
 
     constructor(config: IBaseDatabaseAdapter) {
+        super(config.name)
         const { name, databaseType, connectionString } = config
 
         this._name = name
@@ -32,12 +34,12 @@ abstract class BaseDatabaseAdapter {
     public abstract close(): void
 
     protected _log(message: string): void {
-        console.log(`[${this._name}] : ${message}`)
+        this.__logInfo(message)
     }
 
     protected _logWarning(message: string): void {
         if (!this._suppressWarnings) {
-            console.warn(`[${this._name}] : ${message}`)
+            this.__logWarn(message)
         }
     }
 

@@ -1,6 +1,6 @@
 import { logger } from "./logger"
 
-class CommonBaseClass {
+abstract class CommonBaseClass {
     private __className: string;
     private logger = logger;
 
