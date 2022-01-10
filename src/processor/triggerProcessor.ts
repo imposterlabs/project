@@ -3,8 +3,9 @@ import { IMayaTriggerDefinition, IEnvironment, IPrompt, IHeader } from "../parse
 import { ContextualFunction, IContext } from "../parser/core/context/interface";
 import { ContextualFunctionException } from "../exceptions/ContextualFunctionException"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { CommonBaseClass } from "../common/class";
 
-class MayaTriggerProcessor {
+class MayaTriggerProcessor extends CommonBaseClass {
 
     private _trigger: IMayaTriggerDefinition;
     private _environment: IEnvironment;
@@ -12,6 +13,8 @@ class MayaTriggerProcessor {
     private _response: AxiosResponse | undefined
 
     constructor(trigger: IMayaTriggerDefinition) {
+        super("MayaTriggerProcessor")
+
         this._trigger = trigger;
         this._environment = trigger.environment || {};
         this._prompt = {}

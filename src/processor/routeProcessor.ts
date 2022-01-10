@@ -2,14 +2,17 @@ import { PromptWrapper } from "./core/prompt";
 import { IEnvironment, IPrompt, IMayaRouteDefinition } from "../parser/core/interface";
 import { ContextualFunction, IContext } from "../parser/core/context/interface";
 import { ContextualFunctionException } from "../exceptions/ContextualFunctionException"
+import { CommonBaseClass } from "../common/class";
 
-class MayaRouteProcessor {
+class MayaRouteProcessor extends CommonBaseClass {
 
     private _route: IMayaRouteDefinition
     private _environment: IEnvironment;
     private _prompt: IPrompt;
 
     constructor(route: IMayaRouteDefinition) {
+        super("MayaRouteProcessor")
+
         this._route = route
         this._environment = route.environment || {};
         this._prompt = {}
@@ -69,8 +72,6 @@ class MayaRouteProcessor {
             throw new ContextualFunctionException(`failing contextual function in ${this._route.name}`)
         }
     }
-
-
 }
 
 export { MayaRouteProcessor };
