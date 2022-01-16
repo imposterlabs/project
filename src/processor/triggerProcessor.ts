@@ -4,13 +4,14 @@ import { ContextualFunction, IContext } from "../parser/core/context/interface";
 import { ContextualFunctionException } from "../exceptions/ContextualFunctionException"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { CommonBaseClass } from "../common/class";
+import { IPreAndPostTriggers, ITriggerResponseHandler } from "./interface";
 
 class MayaTriggerProcessor extends CommonBaseClass {
 
-    private _trigger: IMayaTriggerDefinition;
-    private _environment: IEnvironment;
-    private _prompt: IPrompt;
-    private _response: AxiosResponse | undefined
+    public _trigger: IMayaTriggerDefinition;
+    public _environment: IEnvironment;
+    public _prompt: IPrompt;
+    public _response: AxiosResponse | undefined
 
     constructor(trigger: IMayaTriggerDefinition) {
         super("MayaTriggerProcessor")
@@ -21,11 +22,19 @@ class MayaTriggerProcessor extends CommonBaseClass {
         this._response = undefined
     }
 
+    public getPreAndPostTriggers(): IPreAndPostTriggers {
+        return {
+            before: this._trigger.before || [],
+            after: this._trigger.after || []
+        }
+    }
+
     public async run() {
         await this._collectUserInputs()
         await this._transformContextualFunctionToString()
         await this._triggerAxiosRequest()
-        return this._response?.data
+        await this._executeUserPassedResponseFunction()
+
     }
 
     public async _collectUserInputs(): Promise<boolean> {
@@ -91,6 +100,24 @@ class MayaTriggerProcessor extends CommonBaseClass {
 
         const response = await axios.request(config)
         this._response = response
+    }
+
+    private async _executeUserPassedResponseFunction() {
+        const contextInsideFunction: ITriggerResponseHandler = {
+            environment: this._environment,
+            prompt: this._prompt,
+            trigger: this._trigger,
+            response: this._response
+        }
+
+        try {
+            if (typeof this._trigger.response === "function") {
+                await this._trigger.response(contextInsideFunction)
+            }
+        } catch (e) {
+            throw new ContextualFunctionException(`failing response function in ${this._trigger.name}`)
+        }
+
     }
 }
 

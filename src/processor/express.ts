@@ -88,9 +88,21 @@ class HttpWebServer extends CommonBaseClass {
         return trigger
     }
 
-    private _runTrigger(trigger: IMayaTriggerDefinition) {
+    private async _runTrigger(trigger: IMayaTriggerDefinition) {
         const triggerHandler = new MayaTriggerProcessor(trigger)
+        const { before, after } = triggerHandler.getPreAndPostTriggers()
+
+        before.forEach(triggerName => {
+            const triggerInstance = this._getTriggerByName(triggerName)
+            this._runTrigger(triggerInstance)
+        })
+
         triggerHandler.run()
+
+        after.forEach(triggerName => {
+            const triggerInstance = this._getTriggerByName(triggerName)
+            this._runTrigger(triggerInstance)
+        })
     }
 }
 
