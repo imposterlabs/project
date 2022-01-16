@@ -14,44 +14,57 @@ const worker = async () => {
 
     const triggerMaps: Array<IMayaTriggerDefinition> = [
         {
-            name: "TRIGGER_BEFORE_1",
+            name: "TRIGGER_1",
             method: METHOD.GET,
             url: "https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb",
             response: async () => {
-                console.log("TRIGGER_BEFORE")
-            }
-        },
-        {
-            name: "TRIGGER_BEFORE_2",
-            method: METHOD.POST,
-            url: "https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb",
-            response: async () => {
-                console.log("TRIGGER_BEFORE")
+                console.log("TRIGGER 1")
             },
-            body: {
-                "name": "TRIGGER_BEFORE_2"
-            }
+            before: ["TRIGGER_1_BEFORE"],
+            after: ["TRIGGER_1_AFTER"]
         },
         {
-            name: "TRIGGER_AFTER_1",
+            name: "TRIGGER_1_BEFORE",
             method: METHOD.GET,
             url: "https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb",
             response: async () => {
-                console.log("TRIGGER_AFTER")
+                console.log("TRIGGER 1 BEFORE")
             }
         },
         {
-            name: "TRIGGER_AFTER_2",
-            method: METHOD.POST,
+            name: "TRIGGER_1_AFTER",
+            method: METHOD.GET,
             url: "https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb",
             response: async () => {
-                console.log("TRIGGER_AFTER")
-            },
-            body: {
-                "name": "TRIGGER_AFTER_2"
+                console.log("TRIGGER 1 AFTER")
             }
         },
-
+        {
+            name: "TRIGGER_2",
+            method: METHOD.GET,
+            url: "https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb",
+            response: async () => {
+                console.log("TRIGGER 2")
+            },
+            before: ["TRIGGER_2_BEFORE"],
+            after: ["TRIGGER_2_AFTER"]
+        },
+        {
+            name: "TRIGGER_2_BEFORE",
+            method: METHOD.GET,
+            url: "https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb",
+            response: async () => {
+                console.log("TRIGGER 2 BEFORE")
+            }
+        },
+        {
+            name: "TRIGGER_2_AFTER",
+            method: METHOD.GET,
+            url: "https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb",
+            response: async () => {
+                console.log("TRIGGER 2 AFTER")
+            }
+        }
     ]
 
     const routeMaps: Array<IMayaRouteDefinition> = [
@@ -69,8 +82,8 @@ const worker = async () => {
                 const data = repeat(generatorFunction, number)
                 return data
             },
-            before: ["TRIGGER_BEFORE_1", "TRIGGER_BEFORE_2"],
-            after: ["TRIGGER_AFTER_1", "TRIGGER_AFTER_2"]
+            before: ["TRIGGER_1",],
+            after: ["TRIGGER_2"]
         },
         {
             method: METHOD.GET,
