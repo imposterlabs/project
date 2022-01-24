@@ -2,7 +2,7 @@
   "name": "maya-mvp",
   "version": "1.0.0",
   "description": "mvp for maya",
-  "main": "dist/server.js",
+  "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
     "start": "node dist/server.js",
@@ -14,9 +14,12 @@
     "type": "git",
     "url": "git+https://github.com/YashKumarVerma/maya-mvp.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "mocking",
+    "data"
+  ],
+  "author": "Yash Kumar Verma<yk.verma2000@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/YashKumarVerma/maya-mvp/issues"
   },

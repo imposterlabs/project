@@ -7,6 +7,7 @@ import { StateHandler } from "./state/StateHandler"
 import { PersistentStateHandler } from "./state/PersistentStateHandler"
 import { RetrieveOrphan, SaveAsOrphan } from "./state/Orphan"
 
+
 const worker = async () => {
 
     const { get: getSimpleState, set: setSimpleState } = StateHandler<string>("default_value")
