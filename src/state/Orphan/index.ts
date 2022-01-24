@@ -1,18 +1,15 @@
 import { IOrphanValue } from "./interface"
-import { RedisAdapter } from '../../database/redis';
-
+import { getValue, setValue, closeConnection } from "../../database/core/adapter"
 
 async function SaveAsOrphan(key: string, value: any) {
-    const handler = await new RedisAdapter({})
     const payload: IOrphanValue = { payload: value }
-    await handler.setValue(key, JSON.stringify(payload))
-    handler.close()
+    await setValue(key, JSON.stringify(payload))
+    closeConnection()
 }
 
 async function RetrieveOrphan(key: string): Promise<any> {
-    const handler = await new RedisAdapter({})
-    const savedValue = await handler.getValue(key)
-    handler.close()
+    const savedValue = await getValue(key)
+    closeConnection()
 
     if (savedValue === undefined) { return undefined }
     return JSON.parse(savedValue)

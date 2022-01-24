@@ -1,11 +1,10 @@
 import { v4 as uuid } from 'uuid';
 import { IStateHandlerAsync } from "./interface"
-import { RedisAdapter } from '../../database/redis';
+import { getValue, setValue } from "../../database/core/adapter"
 
 
 const PersistentStateHandler = (function () {
     const hookID: string = uuid();
-    const databaseHandler = new RedisAdapter({})
 
     let internalStorage: any
     let databaseBusy = false
@@ -18,7 +17,7 @@ const PersistentStateHandler = (function () {
             initialValue = JSON.stringify(initialValue)
         }
         initialValue = String(initialValue)
-        await databaseHandler.setValue(hookID, initialValue)
+        await setValue(hookID, initialValue)
 
         async function set(updatedValue: any): Promise<void> {
             internalStorage = updatedValue
@@ -29,7 +28,7 @@ const PersistentStateHandler = (function () {
             }
             updatedValue = String(updatedValue)
 
-            await databaseHandler.setValue(hookID, updatedValue)
+            await setValue(hookID, updatedValue)
             databaseBusy = false
         }
 
@@ -39,7 +38,7 @@ const PersistentStateHandler = (function () {
             }
 
             // return last known defined value if database fetch failed
-            const databaseResponse = await databaseHandler.getValue(hookID)
+            const databaseResponse = await getValue(hookID)
             if (databaseResponse === undefined) {
                 return internalStorage
             }

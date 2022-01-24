@@ -24,11 +24,10 @@ abstract class BaseDatabaseAdapter extends CommonBaseClass {
         // configuration defaults
         this._suppressWarnings = config.suppressWarnings || false
         this._raiseExceptionOnWarning = config.raiseExceptionOnWarning || false
-
     }
 
     public abstract _initialize(): Promise<void>
-    public abstract _testConnection(): Promise<void>
+    public abstract testConnection(): Promise<void>
     public abstract setValue(key: string, value: string): void
     public abstract getValue(key: string): Promise<string | undefined>
     public abstract close(): void
@@ -48,7 +47,6 @@ abstract class BaseDatabaseAdapter extends CommonBaseClass {
             throw new KeyCannotBeSavedException(this._name, key, value)
         }
     }
-
 }
 
 export { BaseDatabaseAdapter }

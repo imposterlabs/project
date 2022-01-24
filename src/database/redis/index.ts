@@ -19,7 +19,6 @@ class RedisAdapter extends BaseDatabaseAdapter {
 
         this._client = createClient({ url: this._connectionString })
         this._client.connect()
-        this._testConnection()
     }
 
     /** Operations to perform on the client when the adapter is initialized */
@@ -29,13 +28,13 @@ class RedisAdapter extends BaseDatabaseAdapter {
     }
 
     /** Test the connection to the database by saving and retrieving a value */
-    public async _testConnection(): Promise<void> {
+    public async testConnection(): Promise<void> {
         const pingResponse = await this._client.ping()
         if (pingResponse !== "PONG") {
             throw new AdapterConnectionFailedException(this._name)
         }
 
-        this._log("connection successful")
+        this.__logInfo("connection successful")
     }
 
     public async getValue(key: string): Promise<string | undefined> {
