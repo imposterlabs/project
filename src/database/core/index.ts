@@ -33,18 +33,8 @@ abstract class BaseDatabaseAdapter extends CommonBaseClass {
     public abstract getValue(key: string): Promise<string | undefined>
     public abstract close(): void
 
-    protected _log(message: string): void {
-        this.__logInfo(message)
-    }
-
-    protected _logWarning(message: string): void {
-        if (!this._suppressWarnings) {
-            this.__logWarn(message)
-        }
-    }
-
     protected _keyNotFoundHandler(key: string): void {
-        this._logWarning(`key '${key}' not found, returning undefined`)
+        this.__logWarn(`key '${key}' not found, returning undefined`)
 
         if (this._raiseExceptionOnWarning) {
             throw new KeyNotFoundException(this._name, key)
@@ -52,7 +42,7 @@ abstract class BaseDatabaseAdapter extends CommonBaseClass {
     }
 
     protected _keyCannotBeSavedHandler(key: string, value: string): void {
-        this._logWarning(`key '${key}' could not be saved with value '${value}'`)
+        this.__logWarn(`key '${key}' could not be saved with value '${value}'`)
 
         if (this._raiseExceptionOnWarning) {
             throw new KeyCannotBeSavedException(this._name, key, value)
