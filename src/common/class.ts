@@ -1,3 +1,4 @@
+import { MethodNotImplementedException } from "../exceptions/common/MethodNotImplementedException";
 import { logger } from "./logger"
 
 abstract class CommonBaseClass {
@@ -8,6 +9,9 @@ abstract class CommonBaseClass {
         this.__className = className;
     }
 
+    /**
+     * Logging utilities
+     */
     protected __logInfo(message: string) {
         this.logger.info(`[${this.__className}]: ${message}`);
     }

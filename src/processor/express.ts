@@ -6,12 +6,15 @@ import { MayaRouteProcessor } from "./routeProcessor";
 import faker from "faker/locale/en_IND"
 import { TriggerNotFoundException } from "../exceptions/trigger"
 import { MayaTriggerProcessor } from ".";
+import { BaseDatabaseAdapter } from "../database/core";
+
 class HttpWebServer extends CommonBaseClass {
 
     private _app: express.Application;
     private _port: number = 3000
     private _environment: IEnvironment
     private _triggers: Array<IMayaTriggerDefinition> = []
+    private _database: BaseDatabaseAdapter | undefined
 
     constructor() {
         super("HttpWebServer")
@@ -20,8 +23,8 @@ class HttpWebServer extends CommonBaseClass {
         this._app.use(bodyParser.urlencoded({ extended: true }))
         this._app.use(bodyParser.json())
         this._app.get("/", (req, res) => { return res.json({ alive: true }) })
-
         this._environment = {}
+        this._database = undefined
     }
 
     public start() {
@@ -37,6 +40,11 @@ class HttpWebServer extends CommonBaseClass {
 
     public registerTriggers(triggers: Array<IMayaTriggerDefinition>) {
         this._triggers = triggers
+    }
+
+    public attachDatabase(databaseInstance: BaseDatabaseAdapter) {
+        this._database = databaseInstance
+        this._database.testConnection()
     }
 
     private async _processesAndRegisterRoute(route: IMayaRouteDefinition) {
