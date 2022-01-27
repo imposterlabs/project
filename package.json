@@ -1,5 +1,5 @@
 {
-  "name": "maya-mvp",
+  "name": "@sasta-sa/project",
   "version": "1.0.0",
   "description": "mvp for maya",
   "main": "dist/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YashKumarVerma/maya-mvp.git"
+    "url": "git+https://github.com/sasta-sa/project.git"
   },
   "keywords": [
     "mocking",
@@ -23,9 +23,9 @@
   "author": "Yash Kumar Verma<yk.verma2000@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/YashKumarVerma/maya-mvp/issues"
+    "url": "https://github.com/sasta-sa/project/issues"
   },
-  "homepage": "https://github.com/YashKumarVerma/maya-mvp#readme",
+  "homepage": "https://github.com/sasta-sa/project#readme",
   "devDependencies": {
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",

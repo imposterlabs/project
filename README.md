@@ -1,4 +1,4 @@
-# Maya MVP
+# @sasta-sa/project
 
 > mock APIs, intelligently, with context, and perform other stuff as well :smile:
 
