@@ -40,7 +40,6 @@ describe("StateHandler", () => {
         expect(getSimpleState()).toBe(secondRandomString);
     })
 
-
     it("should allow multiple declarations withing same block", () => {
 
         const data = {
