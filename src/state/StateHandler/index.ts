@@ -1,21 +1,27 @@
 import { IStateHandler, } from "./interface"
 
-const StateHandler = (function () {
-    let internalStorage: any
+class StateHandler<DefaultValueType> {
+    public value: DefaultValueType
 
-    return function useState<Type>(initialValue: Type): IStateHandler<Type> {
-        internalStorage = initialValue
-
-        function set(updatedValue: Type): void {
-            internalStorage = updatedValue
-        }
-
-        function get(): Type {
-            return internalStorage
-        }
-
-        return { get, set }
+    constructor(defaultValue: DefaultValueType) {
+        this.value = defaultValue
     }
-})()
+
+    get(): any {
+        return this.value
+    }
+
+    set(value: any): void {
+        this.value = value
+    }
+
+    getPair(): IStateHandler<DefaultValueType> {
+        return {
+            get: this.get.bind(this),
+            set: this.set.bind(this),
+        }
+    }
+}
+
 
 export { StateHandler }
