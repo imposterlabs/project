@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { IStateHandlerAsync } from "./interface"
-import { getValue, setValue } from "../../database/core/adapter"
+import { getValue, setValue } from "../../database"
 
 
 const PersistentStateHandler = (function () {

@@ -1,5 +1,5 @@
 import { IOrphanValue } from "./interface"
-import { getValue, setValue, closeConnection } from "../../database/core/adapter"
+import { getValue, setValue, closeConnection } from "../../database"
 
 async function SaveAsOrphan(key: string, value: any) {
     const payload: IOrphanValue = { payload: value }
