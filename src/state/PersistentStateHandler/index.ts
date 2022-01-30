@@ -1,10 +1,9 @@
-import { v4 as uuid } from 'uuid';
-import { IStateHandlerAsync } from "./interface"
-import { getValue, setValue } from "../../database"
-
+import { v4 as uuid } from 'uuid'
+import { IStateHandlerAsync } from './interface'
+import { getValue, setValue } from '../../database'
 
 const PersistentStateHandler = (function () {
-    const hookID: string = uuid();
+    const hookID: string = uuid()
 
     let internalStorage: any
     let databaseBusy = false
@@ -13,7 +12,7 @@ const PersistentStateHandler = (function () {
         internalStorage = initialValue
 
         // save stringified value to database
-        if (typeof initialValue === "object") {
+        if (typeof initialValue === 'object') {
             initialValue = JSON.stringify(initialValue)
         }
         initialValue = String(initialValue)
@@ -23,7 +22,7 @@ const PersistentStateHandler = (function () {
             internalStorage = updatedValue
             databaseBusy = true
 
-            if (typeof updatedValue === "object") {
+            if (typeof updatedValue === 'object') {
                 updatedValue = JSON.stringify(updatedValue)
             }
             updatedValue = String(updatedValue)
@@ -39,11 +38,11 @@ const PersistentStateHandler = (function () {
 
             // return last known defined value if database fetch failed
             const databaseResponse = await getValue(hookID)
-            if (databaseResponse === undefined) {
+            if (databaseResponse === undefined || databaseResponse === null) {
                 return internalStorage
             }
 
-            if (typeof internalStorage === "object") {
+            if (typeof internalStorage === 'object') {
                 internalStorage = JSON.parse(databaseResponse)
                 return internalStorage
             }
@@ -54,6 +53,5 @@ const PersistentStateHandler = (function () {
         return { get, set }
     }
 })()
-
 
 export { PersistentStateHandler }

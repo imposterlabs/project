@@ -1,27 +1,15 @@
 import { BaseDatabaseAdapter } from '@sasta-sa/abstract-database-adapter'
 
-const DatabaseAttachment = (function () {
-  let adapter: BaseDatabaseAdapter
-  let databaseGetValue: (key: string) => Promise<string | undefined>
-  let databaseSetValue: (key: string, value: string) => void
-  let closeConnection: () => void
+let adapter: BaseDatabaseAdapter | undefined
+let getValue: (key: string) => Promise<string | null> | string | null
+let setValue: (key: string, value: string) => void
+let closeConnection: () => void
 
-  return function register(databaseHandler: BaseDatabaseAdapter) {
-    adapter = databaseHandler
-    databaseSetValue = adapter.setValue
-    databaseGetValue = adapter.getValue
+const setAdapter = (adapterInstance: BaseDatabaseAdapter) => {
+    adapter = adapterInstance
+    getValue = adapter.getValueHandlerGenerator()
+    setValue = adapter.setValueHandlerGenerator()
     closeConnection = adapter.close
+}
 
-    function setHandler(key: string): Promise<string | undefined> {
-      return databaseGetValue(key)
-    }
-
-    function getHandler(key: string, value: string): void {
-      return databaseSetValue(key, value)
-    }
-
-    return { setHandler, getHandler }
-  }
-})()
-
-export { DatabaseAttachment }
+export { getValue, setValue, closeConnection, setAdapter }

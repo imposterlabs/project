@@ -1,13 +1,13 @@
-import express, { Request, Response, NextFunction } from 'express'
+import express from 'express'
 import faker from 'faker/locale/en_IND'
 import bodyParser from 'body-parser'
-import { BaseDatabaseAdapter } from '@sasta-sa/abstract-database-adapter'
 import { IEnvironment, IMayaRouteDefinition, IMayaTriggerDefinition } from '../parser/core/interface'
 import { CommonBaseClass } from '../common/class'
 import { MayaRouteProcessor } from './routeProcessor'
 import { TriggerNotFoundException } from '../exceptions/trigger'
 import { MayaTriggerProcessor } from '.'
-import { DatabaseAttachment } from '../database'
+import { setAdapter } from '../database'
+import { BaseDatabaseAdapter } from '@sasta-sa/abstract-database-adapter'
 
 class HttpWebServer extends CommonBaseClass {
     private _app: express.Application
@@ -44,13 +44,12 @@ class HttpWebServer extends CommonBaseClass {
         this._triggers = triggers
     }
 
-    public attachDatabase<SpecificDatabaseAdapter extends BaseDatabaseAdapter>(
-        databaseInstance: SpecificDatabaseAdapter,
-    ) {
+    public attachDatabase(databaseInstance: BaseDatabaseAdapter) {
         this._database = databaseInstance
         this._database.testConnection()
+        this._database.initialize()
 
-        DatabaseAttachment(databaseInstance)
+        setAdapter(this._database)
     }
 
     private async _processesAndRegisterRoute(route: IMayaRouteDefinition) {
