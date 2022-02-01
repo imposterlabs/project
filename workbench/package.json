@@ -1,15 +1,18 @@
 {
   "name": "workbench",
   "version": "1.0.0",
-  "description": "",
+  "description": "testing cart for package",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Yash Kumar Verma<yk.verma2000@gmail.com>",
-  "license": "MIT",
+  "license": "mit",
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  },
   "dependencies": {
-    "maya-mvp": "file:.."
+    "@sasta-sa/in-memory-database-adapter": "^0.0.1-concept.2"
   }
 }

@@ -1,14 +1,14 @@
-import { Method } from "./method/interface"
-import { Parameter } from "./parameter/interface"
-import { ContextualFunction, IContext, IHttpContext } from "./context/interface"
+import { Method } from './method/interface'
+import { Parameter } from './parameter/interface'
+import { ContextualFunction, IContext, IHttpContext } from './context/interface'
 
-export interface IHeader extends Record<string, string> { }
-export interface IEnvironment extends Record<string, string> { }
-export interface IPrompt extends Record<string, any> { }
+export interface IHeader extends Record<string, string> {}
+export interface IEnvironment extends Record<string, any> {}
+export interface IPrompt extends Record<string, any> {}
 
 export interface IMayaTriggerDefinition {
     /** objects to fetch from the environment */
-    environment?: IEnvironment,
+    environment?: IEnvironment
 
     /** objects to prompt the user for input */
     prompt?: IPrompt
@@ -39,10 +39,9 @@ export interface IMayaTriggerDefinition {
     autonomous?: boolean
 }
 
-
 export interface IMayaRouteDefinition {
     /** objects to fetch from the environment */
-    environment?: IEnvironment,
+    environment?: IEnvironment
 
     /** objects to prompt the user for input */
     prompt?: IPrompt

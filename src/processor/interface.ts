@@ -1,9 +1,9 @@
-import { AxiosResponse } from "axios";
-import { IEnvironment, IMayaTriggerDefinition, IPrompt } from "../parser/core/interface";
+import { AxiosResponse } from 'axios'
+import { IEnvironment, IMayaTriggerDefinition, IPrompt } from '../parser/core/interface'
 
 export interface MayaTriggerProcessorConstructor {
     environment: IEnvironment
-    trigger: IMayaTriggerDefinition;
+    trigger: IMayaTriggerDefinition
 }
 
 export interface IPreAndPostTriggers {
@@ -12,8 +12,18 @@ export interface IPreAndPostTriggers {
 }
 
 export interface ITriggerResponseHandler {
-    environment: IEnvironment,
-    prompt: IPrompt,
-    trigger: IMayaTriggerDefinition,
+    environment: IEnvironment
+    prompt: IPrompt
+    trigger: IMayaTriggerDefinition
     response: AxiosResponse | undefined
+}
+
+export interface IHttpWebServerConstructor {
+    port: number
+    environment: IEnvironment
+
+    /**
+     * @default true
+     */
+    enableCORS?: boolean
 }

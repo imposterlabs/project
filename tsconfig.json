@@ -20,6 +20,7 @@
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",
-    "dist"
+    "dist",
+    "workbench"
   ]
 }
