@@ -1,6 +1,6 @@
 import { HttpWebServer } from '../processor/express'
 import { CommonBaseClass } from '../common/class'
-import { BaseDatabaseAdapter } from '../database/core'
+import { BaseDatabaseAdapter } from '@sasta-sa/abstract-database-adapter'
 import { IEnvironment, IMayaRouteDefinition, IMayaTriggerDefinition } from '../parser/core/interface'
 import { ISastaProjectConfig } from './interface'
 import { RequestHandler } from 'express'

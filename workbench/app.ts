@@ -5,6 +5,8 @@ const worker = async () => {
     const handler = new SastaSaProject()
     const adapter = new InMemoryAdapter()
     handler.attachDatabase(adapter)
+
+    handler.startServer()
 }
 
 worker()

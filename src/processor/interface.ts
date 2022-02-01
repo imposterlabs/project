@@ -23,7 +23,8 @@ export interface IHttpWebServerConstructor {
     environment: IEnvironment
 
     /**
-     * @default true
+     * the following are true by default
      */
     enableCORS?: boolean
+    disableXPoweredBy?: boolean
 }

@@ -18,7 +18,6 @@ import { BaseDatabaseAdapter } from '@sasta-sa/abstract-database-adapter'
 
 class HttpWebServer extends CommonBaseClass {
     private _app: express.Application
-    private _port: number
     private _environment: IEnvironment
     private _triggers: Array<IMayaTriggerDefinition> = []
     private _database: BaseDatabaseAdapter | undefined
@@ -28,7 +27,6 @@ class HttpWebServer extends CommonBaseClass {
         super('HttpWebServer')
 
         this._config = config
-        this._port = config.port
         this._environment = config.environment
 
         /** setup express instance */
@@ -44,16 +42,21 @@ class HttpWebServer extends CommonBaseClass {
 
     /**
      * all default middleware attachments are conditional, and can be disabled by passing false to the config.
+     * Naming convention is set to set all defaults to true
      */
     private _conditionallyAttachMiddleware() {
         if (this._config.enableCORS ?? true) {
             this.attachMiddleware(cors())
         }
+
+        if (this._config.disableXPoweredBy ?? true) {
+            this._app.disable('x-powered-by')
+        }
     }
 
     public start() {
-        this._app.listen(this._port)
-        this.__logInfo(`Server started on http://localhost:${this._port}`)
+        this._app.listen(this._config.port)
+        this.__logInfo(`Server started on http://localhost:${this._config.port}`)
     }
 
     public registerRoutes(routes: Array<IMayaRouteDefinition>) {
