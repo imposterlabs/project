@@ -19,6 +19,7 @@ class SastaSaProject extends CommonBaseClass {
             internalServerErrorRatio: config?.internalServerErrorRatio ?? 0.1,
             badRequestErrorRatio: config?.badRequestErrorRatio ?? 0.1,
             serviceUnavailableErrorRatio: config?.serviceUnavailableErrorRatio ?? 0.1,
+            getENV: process.env,
         }
 
         this._httpServer = new HttpWebServer({
