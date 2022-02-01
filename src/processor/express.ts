@@ -14,7 +14,7 @@ import { CommonBaseClass } from '../common/class'
 import { MayaRouteProcessor } from './routeProcessor'
 import { TriggerNotFoundException } from '../exceptions/trigger'
 import { MayaTriggerProcessor } from '.'
-import { BaseDatabaseAdapter } from '../database/core'
+import { BaseDatabaseAdapter } from '@sasta-sa/abstract-database-adapter'
 
 class HttpWebServer extends CommonBaseClass {
     private _app: express.Application
@@ -69,7 +69,7 @@ class HttpWebServer extends CommonBaseClass {
     public attachDatabase(databaseInstance: BaseDatabaseAdapter) {
         this._database = databaseInstance
         this._database.testConnection()
-        this._database._initialize()
+        this._database.initialize()
     }
 
     public attachMiddleware(middleware: express.RequestHandler) {
