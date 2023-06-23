@@ -2,10 +2,36 @@
 
 > mock APIs, intelligently, with context, and perform other stuff as well :smile:
 
-## Setting up
-- Clone the project `git clone https://github.com/YashKumarVerma/maya-mvp` and `cd maya-mvp` to open it
-- Instal the dependencies with `npm i`
-- Start development server with `nodemon`
+## I'm here to mock, how do i do it?
+- Refer the [example](git@github.com:imposterlabs/example.git) repository for examples. 
+
+
+## How to use this in <5 minutes
+Here's what you can do right now, and what you'd be able to do in near future:
+
+**Terminology**
+- **`Route`**  is a route. period. Each route is defined as an object.
+- **`RouteMap`** is a list/array of routes that your server will answer to. Its a list of `route`  
+- **`Triggers`** : is somewhat like a function. This name is borrowed from databases. Triggers can be called from `routes` and other `triggers`. Both before and after. 
+- **`StateHandlers`** : this name is borrowed from react. StateHandlers are used to fetch or set data from `storages` -- used to make the mock server stateful. Use it to save details. Scroll for more details.
+
+
+**Coming Soon**
+- if a route in unhandled, forward the request to an external server. (inimplemented)
+- Realtime Interrupts: (partially implemented)
+  - define inputs that will be taken from CLI for route(implemented)
+  - this input will have a default value, which will be used when running in headless mode.
+  - these prompts are exposed to each route handler, and can be used to generate dynamic responses -- or launch triggers.
+  - usecases: 
+    - test specific cases against a mock without coding anything.
+    - live debugging, allows hitting corner cases.
+- Entropy Events: (partially implemented)
+  - things break all the time. anyone can write code that works, but only a few can write code that doesn't break.
+  - define an entropy value per server, which will be used to randomly break the server
+  - these exceptions will return a wide range of HTTP status codes, each configurable (comes with ~~default~~ batteries included)
+  - If an endpoint was written by an intern and breaks more than others, congrats. All configurations can be overriden per route level as well.
+
+
 
 ## Triggers
 Triggers are like functions, which are called by other triggers or routes. The main aim is to perform database operations / network calls before/after the route has been executed. Use them to run tasks after something happened. 
