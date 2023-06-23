@@ -7,7 +7,7 @@ import { MayaRouteProcessor } from './routeProcessor'
 import { TriggerNotFoundException } from '../exceptions/trigger'
 import { MayaTriggerProcessor } from '.'
 import { setAdapter } from '../database'
-import { BaseDatabaseAdapter } from '@sasta-sa/abstract-database-adapter'
+import { BaseDatabaseAdapter } from '@imposterlabs/abstract-database-adapter'
 
 class HttpWebServer extends CommonBaseClass {
     private _app: express.Application

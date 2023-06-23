@@ -7,7 +7,7 @@ import { StateHandler } from './state/StateHandler'
 import { PersistentStateHandler } from './state/PersistentStateHandler'
 import { RetrieveOrphan, SaveAsOrphan } from './state/Orphan'
 
-import { InMemoryAdapter } from '@sasta-sa/in-memory-database-adapter'
+import { InMemoryAdapter } from '@imposterlabs/in-memory-database-adapter'
 
 const worker = async () => {
     const server = new HttpWebServer()
@@ -16,12 +16,13 @@ const worker = async () => {
 
     const { get: getSimpleState, set: setSimpleState } = new StateHandler<string>('default_value').getPair()
     const { get: getPersistentState, set: setPersistentState } = await PersistentStateHandler('default_value')
+    const { get: getCounter, set: SetCounter } = new StateHandler<number>(0).getPair()
 
     const triggerMaps: Array<IMayaTriggerDefinition> = [
         {
             name: 'TRIGGER_1',
             method: METHOD.GET,
-            url: 'https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb',
+            url: 'https://webhook.site/7cc3f779-9db7-4535-b634-3ee509b60260',
             response: async () => {
                 console.log('TRIGGER 1')
             },
@@ -31,7 +32,7 @@ const worker = async () => {
         {
             name: 'TRIGGER_1_BEFORE',
             method: METHOD.GET,
-            url: 'https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb',
+            url: 'https://webhook.site/7cc3f779-9db7-4535-b634-3ee509b60260',
             response: async () => {
                 console.log('TRIGGER 1 BEFORE')
             },
@@ -39,7 +40,7 @@ const worker = async () => {
         {
             name: 'TRIGGER_1_AFTER',
             method: METHOD.GET,
-            url: 'https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb',
+            url: 'https://webhook.site/7cc3f779-9db7-4535-b634-3ee509b60260',
             response: async () => {
                 console.log('TRIGGER 1 AFTER')
             },
@@ -47,7 +48,7 @@ const worker = async () => {
         {
             name: 'TRIGGER_2',
             method: METHOD.GET,
-            url: 'https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb',
+            url: 'https://webhook.site/7cc3f779-9db7-4535-b634-3ee509b60260',
             response: async () => {
                 console.log('TRIGGER 2')
             },
@@ -57,7 +58,7 @@ const worker = async () => {
         {
             name: 'TRIGGER_2_BEFORE',
             method: METHOD.GET,
-            url: 'https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb',
+            url: 'https://webhook.site/7cc3f779-9db7-4535-b634-3ee509b60260',
             response: async () => {
                 console.log('TRIGGER 2 BEFORE')
             },
@@ -65,7 +66,7 @@ const worker = async () => {
         {
             name: 'TRIGGER_2_AFTER',
             method: METHOD.GET,
-            url: 'https://webhook.site/b0ae265d-839f-45fa-9774-c2d8bed11ddb',
+            url: 'https://webhook.site/7cc3f779-9db7-4535-b634-3ee509b60260',
             response: async () => {
                 console.log('TRIGGER 2 AFTER')
             },
@@ -95,6 +96,15 @@ const worker = async () => {
             url: '/state-handler',
             response: async () => {
                 const data = getSimpleState()
+                return { payload: data }
+            },
+        },
+        {
+            method: METHOD.GET,
+            url: '/inc',
+            response: async () => {
+                const data = getCounter()
+                SetCounter(data + 1)
                 return { payload: data }
             },
         },

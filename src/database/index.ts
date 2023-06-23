@@ -1,4 +1,4 @@
-import { BaseDatabaseAdapter } from '@sasta-sa/abstract-database-adapter'
+import { BaseDatabaseAdapter } from '@imposterlabs/abstract-database-adapter'
 
 let adapter: BaseDatabaseAdapter | undefined
 let getValue: (key: string) => Promise<string | null> | string | null
