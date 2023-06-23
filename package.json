@@ -1,6 +1,6 @@
 {
     "name": "@imposterlabs/project",
-    "version": "0.0.1",
+    "version": "1.0.1",
     "description": "main engine for imposter runner",
     "main": "dist/index.js",
     "scripts": {
